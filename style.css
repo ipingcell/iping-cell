@@ -233,3 +233,89 @@ body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68
     box-sizing: border-box !important;
   }
 }
+
+/* ================================
+   FIX FINAL TAMPILAN HP
+   ================================ */
+
+@media (max-width: 900px) {
+
+  html,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .layout {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .toolbar {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #durationList {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  #packageGrid {
+    display: grid !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  #packageGrid .package {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  #packageGrid .pkg-name,
+  #packageGrid .pkg-price,
+  #packageGrid .pkg-foot {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .pkg-price {
+    font-size: clamp(18px, 5vw, 26px) !important;
+    white-space: nowrap !important;
+  }
+}
