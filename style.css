@@ -495,3 +495,27 @@ body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68
     font-size: clamp(18px, 5vw, 24px) !important;
   }
 }
+
+@media (max-width: 768px) {
+  #durationList {
+    gap: 6px !important;
+    padding: 2px 0 !important;
+  }
+
+  #durationList .duration {
+    padding: 10px 14px !important;
+    font-size: 15px !important;
+    min-width: auto !important;
+  }
+}
+
+@media (max-width: 420px) {
+  #durationList {
+    gap: 5px !important;
+  }
+
+  #durationList .duration {
+    padding: 9px 12px !important;
+    font-size: 14px !important;
+  }
+}
