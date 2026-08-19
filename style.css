@@ -191,3 +191,45 @@ body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68
     margin-top: 15px !important;
   }
 }
+
+/* FIX OVERFLOW MOBILE */
+@media (max-width: 600px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  main,
+  .main,
+  .content,
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #packageGrid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  #packageGrid .package {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
