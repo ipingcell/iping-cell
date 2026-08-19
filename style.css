@@ -122,3 +122,49 @@ body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68
   }
 
 }
+/* FIX PROVIDER BUTTON MOBILE */
+@media (max-width: 768px) {
+
+  #providerList {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 8px 0 14px !important;
+  }
+
+  #providerList .provider {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    width: auto !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding: 10px 16px !important;
+
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+  }
+
+  #providerList .provider.active {
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+  }
+
+  #providerList .dot {
+    width: 9px !important;
+    height: 9px !important;
+    min-width: 9px !important;
+    min-height: 9px !important;
+  }
+}
