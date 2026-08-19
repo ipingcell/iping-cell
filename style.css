@@ -319,3 +319,61 @@ body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68
     white-space: nowrap !important;
   }
 }
+
+/* =================================
+   FIX FINAL PROVIDER & MASA AKTIF HP
+   ================================= */
+
+@media (max-width: 900px) {
+
+  /* Provider */
+  #providerList {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 8px !important;
+    padding: 4px 0 10px !important;
+    box-sizing: border-box !important;
+    scrollbar-width: none !important;
+  }
+
+  #providerList::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #providerList .provider {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* Masa aktif */
+  #durationList {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 8px !important;
+    padding: 4px 0 10px !important;
+    box-sizing: border-box !important;
+    scrollbar-width: none !important;
+  }
+
+  #durationList::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #durationList .duration {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* Jangan biarkan halaman utama melebar */
+  body {
+    overflow-x: hidden !important;
+  }
+}
