@@ -54,7 +54,10 @@ function openDetail(id){
   $("#detailContent").innerHTML=`<h2>${esc(x.name)}</h2><p class="pkg-price">${money(x.price)}</p><p class="muted">Provider: ${esc(providers.find(p=>p.id===x.provider_id)?.name||"")}<br>Masa aktif: ${esc(x.duration)}<br>Keterangan: ${esc(x.tag||"Internet")}</p><a class="primary-btn" style="display:inline-block;text-decoration:none" href="${wa}" target="_blank" rel="noopener">PESAN VIA WHATSAPP</a>`;
   $("#detailModal").hidden=false;
 }
-$("#refreshBtn").onclick=loadData;
+$("#refreshBtn").addEventListener("click",async()=>{
+  await loadData();
+  showToast("Data berhasil diperbarui");
+});
 $("#themeBtn").onclick=()=>document.body.classList.toggle("light");
 $("#adminBtn").onclick=()=>{ $("#adminModal").hidden=false; if(adminUser) renderAdmin(); };
 $("#loginForm").onsubmit=async e=>{e.preventDefault();const {data,error}=await sb.auth.signInWithPassword({email:$("#loginEmail").value,password:$("#loginPassword").value});if(error){$("#loginMsg").textContent=error.message;return}adminUser=data.user;renderAdmin()};
