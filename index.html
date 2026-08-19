@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IPING CELL — Paket Internet</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-dot"></span> IPING CELL</div>
+    <div class="top-actions">
+      <button id="themeBtn" class="icon-btn" title="Tema">☾</button>
+      <button id="adminBtn" class="outline-btn">Admin</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="side-title">PILIH PROVIDER</div>
+      <div id="providerList"></div>
+      <div class="side-info">Harga dapat berubah sewaktu-waktu.</div>
+    </aside>
+
+    <section class="content">
+      <div class="hero">
+        <div>
+          <small id="heroKicker">PROMO IPING CELL</small>
+          <h1 id="heroTitle">Paket Internet Hemat</h1>
+          <p id="heroText">Pilih provider dan paket sesuai kebutuhan Anda.</p>
+        </div>
+        <div class="hero-badge">IPING<br><b>CELL</b></div>
+      </div>
+
+      <div class="toolbar">
+        <div id="durationList" class="durations"></div>
+        <button id="refreshBtn" class="outline-btn">↻ Refresh</button>
+      </div>
+
+      <div id="packageGrid" class="package-grid"></div>
+      <div id="emptyState" class="empty" hidden>Tidak ada paket pada masa aktif ini.</div>
+    </section>
+  </main>
+
+  <div id="detailModal" class="modal" hidden>
+    <div class="modal-card">
+      <button class="close" data-close>×</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <div id="adminModal" class="modal" hidden>
+    <div class="modal-card admin-card">
+      <button class="close" data-close>×</button>
+      <div id="adminContent">
+        <h2>Admin IPING CELL</h2>
+        <p class="muted">Login untuk mengelola daftar paket dan harga.</p>
+        <form id="loginForm">
+          <label>Email<input id="loginEmail" type="email" required autocomplete="username"></label>
+          <label>Password<input id="loginPassword" type="password" required autocomplete="current-password"></label>
+          <button class="primary-btn" type="submit">Login Admin</button>
+          <div id="loginMsg" class="msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

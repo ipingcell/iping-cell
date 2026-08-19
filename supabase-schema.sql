@@ -1,0 +1,3 @@
+-- Struktur database yang digunakan website.
+-- Jalankan SQL database yang sudah dibuat pada project Supabase IPING CELL.
+-- File ini hanya dokumentasi/rujukan.

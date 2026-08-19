@@ -1,0 +1,68 @@
+const sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+let providers=[], packages=[], selectedProvider="axis", selectedDuration="5 HARI", adminUser=null;
+
+const $=s=>document.querySelector(s);
+const money=n=>"Rp "+Number(n||0).toLocaleString("id-ID");
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+
+async function loadData(){
+  const p=await sb.from("providers").select("*").order("sort_order");
+  const k=await sb.from("packages").select("*").eq("active",true).order("sort_order");
+  if(p.error) return showToast("Gagal membaca provider: "+p.error.message);
+  if(k.error) return showToast("Gagal membaca paket: "+k.error.message);
+  providers=p.data||[]; packages=k.data||[];
+  if(!providers.some(x=>x.id===selectedProvider)) selectedProvider=providers[0]?.id;
+  render();
+}
+function render(){
+  const pl=$("#providerList"); pl.innerHTML=providers.map(p=>`<button class="provider ${p.id===selectedProvider?"active":""}" data-provider="${esc(p.id)}"><span class="dot" style="background:${esc(p.color||"#22d3ee")}"></span>${esc(p.name)}</button>`).join("");
+  const ds=[...new Set(packages.filter(x=>x.provider_id===selectedProvider).map(x=>x.duration))];
+  if(!ds.includes(selectedDuration)) selectedDuration=ds[0]||"";
+  $("#durationList").innerHTML=ds.map(d=>`<button class="duration ${d===selectedDuration?"active":""}" data-duration="${esc(d)}">${esc(d)}</button>`).join("");
+  const p=providers.find(x=>x.id===selectedProvider);
+  $("#heroKicker").textContent=p?.promo_kicker||"PROMO IPING CELL";
+  $("#heroTitle").textContent=p?.promo_title||`${p?.name||"Paket"} Hemat`;
+  $("#heroText").textContent=p?.promo_price||"Pilih paket sesuai kebutuhan Anda.";
+  const list=packages.filter(x=>x.provider_id===selectedProvider && x.duration===selectedDuration);
+  $("#packageGrid").innerHTML=list.map(x=>`<article class="package" data-package="${x.id}"><div class="pkg-name">${esc(x.name)}</div><div class="pkg-price">${money(x.price)}</div><span class="pkg-tag">${esc(x.tag||"Internet")}</span><div class="pkg-foot">⏱ ${esc(x.duration)} • Klik untuk detail</div></article>`).join("");
+  $("#emptyState").hidden=list.length>0;
+}
+document.addEventListener("click",async e=>{
+  const p=e.target.closest("[data-provider]"); if(p){selectedProvider=p.dataset.provider;render();return}
+  const d=e.target.closest("[data-duration]"); if(d){selectedDuration=d.dataset.duration;render();return}
+  const card=e.target.closest("[data-package]"); if(card){openDetail(Number(card.dataset.package));return}
+  if(e.target.matches("[data-close]")||e.target===e.target.closest(".modal")){ if(e.target.matches("[data-close]")) e.target.closest(".modal").hidden=true; }
+});
+function openDetail(id){
+  const x=packages.find(v=>v.id===id); if(!x)return;
+  const phone=window.IPING_WHATSAPP||"";
+  const msg=encodeURIComponent(`Halo IPING CELL, saya ingin membeli ${x.name} - ${money(x.price)} (${x.duration}).`);
+  const wa=phone?`https://wa.me/${phone.replace(/\D/g,"")}?text=${msg}`:"#";
+  $("#detailContent").innerHTML=`<h2>${esc(x.name)}</h2><p class="pkg-price">${money(x.price)}</p><p class="muted">Provider: ${esc(providers.find(p=>p.id===x.provider_id)?.name||"")}<br>Masa aktif: ${esc(x.duration)}<br>Keterangan: ${esc(x.tag||"Internet")}</p><a class="primary-btn" style="display:inline-block;text-decoration:none" href="${wa}" target="_blank" rel="noopener">PESAN VIA WHATSAPP</a>`;
+  $("#detailModal").hidden=false;
+}
+$("#refreshBtn").onclick=loadData;
+$("#themeBtn").onclick=()=>document.body.classList.toggle("light");
+$("#adminBtn").onclick=()=>{ $("#adminModal").hidden=false; if(adminUser) renderAdmin(); };
+$("#loginForm").onsubmit=async e=>{e.preventDefault();const {data,error}=await sb.auth.signInWithPassword({email:$("#loginEmail").value,password:$("#loginPassword").value});if(error){$("#loginMsg").textContent=error.message;return}adminUser=data.user;renderAdmin()};
+async function renderAdmin(){
+  const {data,error}=await sb.from("packages").select("*").order("provider_id").order("sort_order");
+  if(error){showToast(error.message);return}
+  packages=data||packages;
+  $("#adminContent").innerHTML=`<h2>Admin IPING CELL</h2><div class="admin-toolbar"><button id="addPkg" class="primary-btn">+ Tambah Paket</button><button id="logout" class="outline-btn">Logout</button></div><div id="adminRows"></div><div id="adminMsg" class="msg"></div>`;
+  drawAdminRows();
+  $("#addPkg").onclick=()=>drawAdminRows(true);
+  $("#logout").onclick=async()=>{await sb.auth.signOut();adminUser=null;$("#adminModal").hidden=true};
+}
+function drawAdminRows(add=false){
+  const rows=$("#adminRows");
+  let data=packages.slice();
+  if(add) data.unshift({id:null,provider_id:selectedProvider,duration:selectedDuration,name:"",price:0,tag:"Internet",active:true});
+  rows.innerHTML=data.map((x,i)=>`<div class="admin-row" data-admin-row="${x.id??"new"}"><label>Nama<input data-f="name" value="${esc(x.name)}"></label><label>Harga<input data-f="price" type="number" value="${x.price||0}"></label><label>Masa<select data-f="duration">${["1 HARI","2 HARI","3 HARI","5 HARI","7 HARI","14 HARI","28 HARI"].map(d=>`<option ${d===x.duration?"selected":""}>${d}</option>`).join("")}</select></label><div><button class="primary-btn" data-save="${x.id??"new"}">Simpan</button>${x.id?` <button class="danger-btn" data-del="${x.id}">Hapus</button>`:""}</div></div>`).join("");
+  rows.onclick=async e=>{
+    const save=e.target.closest("[data-save]"); if(save){const r=save.closest(".admin-row"), payload={provider_id:selectedProvider,name:r.querySelector('[data-f="name"]').value.trim(),price:Number(r.querySelector('[data-f="price"]').value),duration:r.querySelector('[data-f="duration"]').value,tag:"Internet",active:true};let res=save.dataset.save==="new"?await sb.from("packages").insert(payload):await sb.from("packages").update(payload).eq("id",save.dataset.save);if(res.error)showToast(res.error.message);else{showToast("Paket tersimpan");await renderAdmin();await loadData()}}
+    const del=e.target.closest("[data-del]"); if(del){if(!confirm("Hapus paket ini?"))return;const res=await sb.from("packages").delete().eq("id",del.dataset.del);if(res.error)showToast(res.error.message);else{showToast("Paket dihapus");await renderAdmin();await loadData()}}
+  };
+}
+function showToast(t){const x=$("#toast");x.textContent=t;x.hidden=false;setTimeout(()=>x.hidden=true,2500)}
+loadData();
