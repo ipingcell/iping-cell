@@ -147,3 +147,47 @@ body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68
     font-size: 24px !important;
   }
 }
+/* ================================
+   IPING CELL - MOBILE FIX
+================================ */
+
+/* Paket 2 kolom di HP */
+@media (max-width: 600px) {
+  #packageGrid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  #packageGrid .package {
+    width: auto !important;
+    min-width: 0 !important;
+    padding: 14px !important;
+  }
+
+  #packageGrid .package h3 {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+
+  #packageGrid .package .price {
+    font-size: 22px !important;
+  }
+
+  #packageGrid .package .meta,
+  #packageGrid .package small {
+    font-size: 11px !important;
+  }
+}
+
+/* Kurangi ruang kosong bagian atas */
+@media (max-width: 600px) {
+  .providers {
+    margin-bottom: 20px !important;
+    padding-bottom: 15px !important;
+  }
+
+  .hero {
+    margin-top: 15px !important;
+  }
+}
