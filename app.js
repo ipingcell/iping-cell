@@ -16,14 +16,18 @@ async function loadData(){
 }
 function render(){
   const pl=$("#providerList"); pl.innerHTML=providers.map(p=>`<button class="provider ${p.id===selectedProvider?"active":""}" data-provider="${esc(p.id)}"><span class="dot" style="background:${esc(p.color||"#22d3ee")}"></span>${esc(p.name)}</button>`).join("");
-  const ds=[...new Set(packages.filter(x=>x.provider_id===selectedProvider).map(x=>x.duration))];
+  const order=["1 HARI","2 HARI","3 HARI","5 HARI","7 HARI","14 HARI","28 HARI"];
+  const ds=[...new Set(packages.filter(x=>x.provider_id===selectedProvider).map(x=>x.duration))]
+  .sort((a,b)=>(order.indexOf(a)-order.indexOf(b)));
   if(!ds.includes(selectedDuration)) selectedDuration=ds[0]||"";
   $("#durationList").innerHTML=ds.map(d=>`<button class="duration ${d===selectedDuration?"active":""}" data-duration="${esc(d)}">${esc(d)}</button>`).join("");
   const p=providers.find(x=>x.id===selectedProvider);
   $("#heroKicker").textContent=p?.promo_kicker||"PROMO IPING CELL";
   $("#heroTitle").textContent=p?.promo_title||`${p?.name||"Paket"} Hemat`;
   $("#heroText").textContent=p?.promo_price||"Pilih paket sesuai kebutuhan Anda.";
-  const list=packages.filter(x=>x.provider_id===selectedProvider && x.duration===selectedDuration);
+  const list=packages
+  .filter(x=>x.provider_id===selectedProvider && x.duration===selectedDuration)
+  .sort((a,b)=>Number(a.price||0)-Number(b.price||0));
   $("#packageGrid").innerHTML=list.map(x=>`<article class="package" data-package="${x.id}"><div class="pkg-name">${esc(x.name)}</div><div class="pkg-price">${money(x.price)}</div><span class="pkg-tag">${esc(x.tag||"Internet")}</span><div class="pkg-foot">⏱ ${esc(x.duration)} • Klik untuk detail</div></article>`).join("");
   $("#emptyState").hidden=list.length>0;
 }
