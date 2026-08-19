@@ -377,3 +377,121 @@ body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68
     overflow-x: hidden !important;
   }
 }
+
+/* ================================
+   PERAPIAN TAMPILAN MOBILE
+   ================================ */
+
+@media (max-width: 768px) {
+
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  /* Provider */
+  #providerList {
+    width: 100%;
+    max-width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+    scrollbar-width: none !important;
+  }
+
+  #providerList::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #providerList .provider {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* Masa aktif */
+  #durationList {
+    width: 100%;
+    max-width: 100%;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+    scrollbar-width: none !important;
+  }
+
+  #durationList::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  #durationList .duration {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* Banner */
+  #hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Tombol Refresh */
+  #refreshBtn {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Paket: 2 kolom */
+  #packageGrid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  #packageGrid .package {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  #packageGrid .pkg-name,
+  #packageGrid .pkg-price,
+  #packageGrid .pkg-foot {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  #packageGrid .pkg-price {
+    white-space: nowrap !important;
+  }
+}
+
+/* HP sangat kecil */
+@media (max-width: 420px) {
+
+  #packageGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  #packageGrid .package {
+    padding: 12px !important;
+  }
+
+  #packageGrid .pkg-price {
+    font-size: clamp(18px, 5vw, 24px) !important;
+  }
+}
