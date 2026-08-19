@@ -28,10 +28,19 @@ function render(){
   $("#emptyState").hidden=list.length>0;
 }
 document.addEventListener("click",async e=>{
+  const close=e.target.closest("[data-close]");
+  if(close){
+    const modal=close.closest(".modal");
+    if(modal) modal.hidden=true;
+    return;
+  }
+  if(e.target.classList.contains("modal")){
+    e.target.hidden=true;
+    return;
+  }
   const p=e.target.closest("[data-provider]"); if(p){selectedProvider=p.dataset.provider;render();return}
   const d=e.target.closest("[data-duration]"); if(d){selectedDuration=d.dataset.duration;render();return}
   const card=e.target.closest("[data-package]"); if(card){openDetail(Number(card.dataset.package));return}
-  if(e.target.matches("[data-close]")||e.target===e.target.closest(".modal")){ if(e.target.matches("[data-close]")) e.target.closest(".modal").hidden=true; }
 });
 function openDetail(id){
   const x=packages.find(v=>v.id===id); if(!x)return;
@@ -66,3 +75,4 @@ function drawAdminRows(add=false){
 }
 function showToast(t){const x=$("#toast");x.textContent=t;x.hidden=false;setTimeout(()=>x.hidden=true,2500)}
 loadData();
+  
