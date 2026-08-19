@@ -48,7 +48,7 @@ document.addEventListener("click",async e=>{
 });
 function openDetail(id){
   const x=packages.find(v=>v.id===id); if(!x)return;
-  const phone=window.IPING_WHATSAPP||"";
+  const phone="6285875177710";
   const msg=encodeURIComponent(`Halo IPING CELL, saya ingin membeli ${x.name} - ${money(x.price)} (${x.duration}).`);
   const wa=phone?`https://wa.me/${phone.replace(/\D/g,"")}?text=${msg}`:"#";
   $("#detailContent").innerHTML=`<h2>${esc(x.name)}</h2><p class="pkg-price">${money(x.price)}</p><p class="muted">Provider: ${esc(providers.find(p=>p.id===x.provider_id)?.name||"")}<br>Masa aktif: ${esc(x.duration)}<br>Keterangan: ${esc(x.tag||"Internet")}</p><a class="primary-btn" style="display:inline-block;text-decoration:none" href="${wa}" target="_blank" rel="noopener">PESAN VIA WHATSAPP</a>`;
