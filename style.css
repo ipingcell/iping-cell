@@ -20,3 +20,105 @@ button,input,select{font:inherit} button{cursor:pointer}
 body.light{--bg:#f5f7fb;--panel:#fff;--panel2:#eef2f7;--text:#172033;--muted:#68758a;--line:#d8deea}body.light .topbar{background:#fff}
 @media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:12px;display:flex;gap:6px;overflow:auto}.side-title,.side-info{display:none}.provider{width:auto;white-space:nowrap}.content{padding:12px}.package-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:145px}.hero-badge{width:78px;height:78px;font-size:12px}}
 @media(max-width:520px){.package-grid{grid-template-columns:1fr}.hero-badge{display:none}.toolbar{align-items:stretch;flex-direction:column}.admin-row{grid-template-columns:1fr 1fr}.admin-row button{grid-column:span 2}}
+/* ================================
+   IPING CELL - MOBILE UI
+   ================================ */
+
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  header {
+    padding: 12px 16px !important;
+  }
+
+  .container,
+  main {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Provider */
+  #providerList {
+    display: flex !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    padding: 8px 0 14px !important;
+    scrollbar-width: none;
+  }
+
+  #providerList::-webkit-scrollbar {
+    display: none;
+  }
+
+  #providerList button {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    padding: 10px 16px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Hero */
+  #heroKicker {
+    font-size: 13px !important;
+  }
+
+  #heroTitle {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+  }
+
+  #heroText {
+    font-size: 14px !important;
+  }
+
+  /* Filter masa aktif */
+  #durationList {
+    display: flex !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    scrollbar-width: none;
+  }
+
+  #durationList::-webkit-scrollbar {
+    display: none;
+  }
+
+  #durationList button {
+    flex: 0 0 auto !important;
+  }
+
+  /* Paket */
+  #packageGrid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .package {
+    width: 100% !important;
+  }
+
+  /* Admin modal */
+  .modal {
+    padding: 16px !important;
+  }
+
+  .modal-content {
+    width: calc(100% - 24px) !important;
+    max-width: 600px !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    margin: auto !important;
+  }
+
+  /* Tombol close */
+  [data-close] {
+    position: relative !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+
+}
