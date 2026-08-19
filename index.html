@@ -46,14 +46,14 @@
 
   <div id="detailModal" class="modal" hidden>
     <div class="modal-card">
-      <button class="close" data-close>×</button>
+      <button type="button" class="close" data-close onclick="this.closest('.modal').hidden=true">×</button>
       <div id="detailContent"></div>
     </div>
   </div>
 
   <div id="adminModal" class="modal" hidden>
     <div class="modal-card admin-card">
-      <button class="close" data-close>×</button>
+      <button type="button" class="close" data-close onclick="this.closest('.modal').hidden=true">×</button>
       <div id="adminContent">
         <h2>Admin IPING CELL</h2>
         <p class="muted">Login untuk mengelola daftar paket dan harga.</p>
